@@ -27,8 +27,15 @@ class WorkerDashboard extends Component{
         })
         .then(response =>{
             console.log(response)
+            alert("Message sent successfully");
+            window.location.reload(false);
         })
     }
+
+    logout() {
+        localStorage.clear();
+        window.location.href = "/";
+      }
 
     render(){
         const{message} = this.state
@@ -36,7 +43,7 @@ class WorkerDashboard extends Component{
         return(
             <div style={{display: "flex",justifyContent: "center",alignItems: "center",height: "100vh"}}>
             <div>
-                <h2>Welcome {user}</h2>
+                
                 <br/>
                 <h3>Enter Message</h3>
                 <form id="msgForm" onSubmit={this.handleSubmit}>
@@ -46,7 +53,8 @@ class WorkerDashboard extends Component{
                 <Button type="submit" variant="contained">Send</Button>
                 </FormControl>
                 </form>
-                
+                <br/><br/><br/>
+            <Button variant="outlined" color="error" onClick={()=>this.logout()}>Logout</Button>
         </div>  
         </div>
         )
