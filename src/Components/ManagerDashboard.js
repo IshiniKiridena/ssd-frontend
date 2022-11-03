@@ -5,11 +5,12 @@ import { FormControl,Button,TextField } from "@mui/material";
 class ManagerDashboard extends Component{
 
     constructor(props){
+        const user = localStorage.getItem("username");
         super(props)
     
         this.state={
             message:'',
-            sender:''
+            sender: user
         }
     }
 
@@ -35,6 +36,8 @@ class ManagerDashboard extends Component{
         return(
             <div style={{display: "flex",justifyContent: "center",alignItems: "center",height: "100vh"}}>
             <div>
+            <h2>Welcome {user}</h2>
+            <br/>
             <h3>Enter Message</h3>
             <form id="msgForm" onSubmit={this.handleSubmit}>
             <FormControl sx={{ width: "40ch" }} variant="outlined">

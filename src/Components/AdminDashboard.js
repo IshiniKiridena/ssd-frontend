@@ -36,10 +36,13 @@ class AdminDashboard extends Component{
 
     render(){
         const{username,password,role} = this.state
+        const user = localStorage.getItem("username");
 
         return(
             <div style={{display: "flex",justifyContent: "center",alignItems: "center",height: "100vh"}}>
                 <div>
+            <h2>Welcome {user}</h2>
+            <br/>
             <h3>Create User</h3>
             <form id="regForm" onSubmit={this.handleSubmit}>
             <FormControl sx={{ width: "40ch" }} variant="outlined">
