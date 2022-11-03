@@ -34,6 +34,11 @@ class AdminDashboard extends Component{
         })
     }
 
+    logout() {
+        localStorage.clear();
+        window.location.href = "/";
+      }
+
     render(){
         const{username,password,role} = this.state
         const user = localStorage.getItem("username");
@@ -69,8 +74,10 @@ class AdminDashboard extends Component{
                 <Button type="submit" variant="contained">Submit</Button>
                 </FormControl>
             </form>
-
+            <br/><br/><br/>
+            <Button variant="outlined" color="error" onClick={()=>this.logout()}>Logout</Button>
             </div>
+            
         </div>  
         )
     }
