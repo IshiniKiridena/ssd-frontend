@@ -58,7 +58,7 @@ class Login extends Component {
         }}
       >
         <div>
-          <h3>Sign in with your employee account</h3>
+          <h3>Login with your employee account</h3>
           <form onSubmit={this.handleSubmit}>
             <FormControl sx={{ width: "40ch" }} variant="outlined">
               <TextField
@@ -68,6 +68,7 @@ class Login extends Component {
                 label="Username"
                 variant="outlined"
                 onChange={this.handleChange}
+                required
               />{" "}
               <br />
               <TextField
@@ -78,10 +79,11 @@ class Login extends Component {
                 label="Password"
                 variant="outlined"
                 onChange={this.handleChange}
+                required
               />{" "}
               <br />
               <Button type="submit" variant="contained">
-                Sign in
+                Login
               </Button>
             </FormControl>
           </form>
