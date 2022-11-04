@@ -31,6 +31,8 @@ class AdminDashboard extends Component{
         })
         .then(response =>{
             console.log(response)
+            alert("User created successfully");
+            window.location.reload(false);
         })
     }
 
