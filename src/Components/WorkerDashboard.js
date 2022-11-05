@@ -22,7 +22,9 @@ class WorkerDashboard extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    const jwt = localStorage.getItem("jwtToken");
     this.state.encryptedMsg = CryptoJS.SHA256(this.state.message).toString();
+    axios.defaults.headers.common["Authorization"] = `Bearer ${jwt}`;
     axios
       .post("http://localhost:4000/messages/messages", this.state, {})
       .then((response) => {
@@ -64,6 +66,7 @@ class WorkerDashboard extends Component {
       >
         <div>
           <br />
+          <h2>Worker Dashboard</h2>
           <h3>Enter Message</h3>
           <form id="msgForm" onSubmit={this.handleSubmit}>
             <FormControl sx={{ width: "40ch" }} variant="outlined">

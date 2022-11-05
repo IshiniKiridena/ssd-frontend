@@ -26,6 +26,8 @@ class AdminDashboard extends Component{
 
     handleSubmit =(e) =>{
         e.preventDefault()
+        const jwt = localStorage.getItem("jwtToken");
+        axios.defaults.headers.common["Authorization"] = `Bearer ${jwt}`;
         axios.post('http://localhost:4000/users/create',this.state,{
     
         })
@@ -48,6 +50,7 @@ class AdminDashboard extends Component{
         return(
             <div style={{display: "flex",justifyContent: "center",alignItems: "center",height: "100vh"}}>
                 <div>
+            <h1>Admin Dashboard</h1>
             <h2>Welcome {user}</h2>
             <br/>
             <h3>Create User</h3>
@@ -63,7 +66,7 @@ class AdminDashboard extends Component{
                     labelId="demo-simple-select-filled-label"
                     id="demo-simple-select-filled"
                     value={role}
-                    onChange={this.handleChange}
+                    onChange={this.handleChange} required
                     >
                     <MenuItem value="">
                         <em>None</em>
