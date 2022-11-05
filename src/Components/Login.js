@@ -23,6 +23,7 @@ class Login extends Component {
     axios
       .post("http://localhost:4000/users/login", this.state)
       .then((res) => {
+        sessionStorage.setItem("isAuthenticated", "true");
         localStorage.setItem("jwtToken", res.data.token);
         localStorage.setItem("username", res.data.username);
         axios.defaults.headers.common["Authorization"] =

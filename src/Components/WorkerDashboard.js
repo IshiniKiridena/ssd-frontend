@@ -49,55 +49,71 @@ class WorkerDashboard extends Component {
 
   logout() {
     localStorage.clear();
+    sessionStorage.clear();
     window.location.href = "/";
   }
 
   render() {
-    const { message } = this.state;
-
-    return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-        }}
-      >
+    var isAuthenticated = sessionStorage.getItem("isAuthenticated");
+    if (isAuthenticated === "true") {
+      const { message } = this.state;
+      return (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
+          }}
+        >
+          <div>
+            <br />
+            <h2>Worker Dashboard</h2>
+            <h3>Enter Message</h3>
+            <form id="msgForm" onSubmit={this.handleSubmit}>
+              <FormControl sx={{ width: "40ch" }} variant="outlined">
+                <TextField
+                  name="message"
+                  id="message"
+                  label="Message"
+                  variant="outlined"
+                  value={message}
+                  onChange={this.handleChange}
+                  required
+                />{" "}
+                <br />
+                <Button type="submit" variant="contained">
+                  Send
+                </Button>
+              </FormControl>
+            </form>
+            <br />
+            <br />
+            <br />
+            <Button
+              variant="outlined"
+              color="error"
+              onClick={() => this.logout()}
+            >
+              Logout
+            </Button>
+          </div>
+        </div>
+      );
+    } else {
+      return (
         <div>
-          <br />
-          <h2>Worker Dashboard</h2>
-          <h3>Enter Message</h3>
-          <form id="msgForm" onSubmit={this.handleSubmit}>
-            <FormControl sx={{ width: "40ch" }} variant="outlined">
-              <TextField
-                name="message"
-                id="message"
-                label="Message"
-                variant="outlined"
-                value={message}
-                onChange={this.handleChange}
-                required
-              />{" "}
-              <br />
-              <Button type="submit" variant="contained">
-                Send
-              </Button>
-            </FormControl>
-          </form>
-          <br />
-          <br />
-          <br />
+          <h1>Please login to continue</h1>
           <Button
             variant="outlined"
             color="error"
             onClick={() => this.logout()}
           >
-            Logout
+            Go to login
           </Button>
         </div>
-      </div>
-    );
+      );
+    }
   }
 }
 
