@@ -23,7 +23,15 @@ class WorkerDashboard extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const jwt = localStorage.getItem("jwtToken");
-    this.state.encryptedMsg = CryptoJS.SHA256(this.state.message).toString();
+    var sendingTxt = CryptoJS.enc.Utf8.parse(this.state.message);
+    var key = CryptoJS.enc.Utf8.parse("JaNdRgUkXp2s5v8y");
+    var encrypted = CryptoJS.AES.encrypt(sendingTxt, key, {
+      mode: CryptoJS.mode.ECB,
+      padding: CryptoJS.pad.ZeroPadding,
+    });
+    encrypted = encrypted.ciphertext.toString(CryptoJS.enc.Hex);
+    this.state.encryptedMsg = encrypted;
+    console.log("Encrypted message : ", this.state.encryptedMsg);
     axios.defaults.headers.common["Authorization"] = `Bearer ${jwt}`;
     axios
       .post("http://localhost:4000/messages/messages", this.state, {})
