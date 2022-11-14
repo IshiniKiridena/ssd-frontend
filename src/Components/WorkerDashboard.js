@@ -62,8 +62,8 @@ class WorkerDashboard extends Component {
   }
 
   render() {
-    var isAuthenticated = sessionStorage.getItem("isAuthenticated");
-    if (isAuthenticated === "true") {
+    var role = sessionStorage.getItem("role");
+    if (role === "Worker") {
       const { message } = this.state;
       return (
         <div
