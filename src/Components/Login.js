@@ -2,6 +2,7 @@ import { Button, FormControl, TextField } from "@mui/material";
 import axios from "axios";
 import React, { Component } from "react";
 import jwtDecode from "jwt-decode";
+import emailjs from "emailjs-com";
 
 class Login extends Component {
   constructor(props) {
@@ -29,20 +30,54 @@ class Login extends Component {
         localStorage.setItem("username", res.data.username);
         axios.defaults.headers.common["Authorization"] =
           "Bearer" + res.data.username;
-        alert(this.state.username + " logged in successfully");
-        const decoded = jwtDecode(res.data.token);
-        sessionStorage.setItem("role", decoded.role);
-        console.log(decoded.role);
-        //check the role and redirect to the view
-        if (decoded.role === "Admin") {
-          window.location.href = "/admin";
-        } else if (decoded.role === "Manager") {
-          window.location.href = "/manager";
-        } else if (decoded.role === "Worker") {
-          window.location.href = "/worker";
-        } else {
-          window.location.href = "#";
-        }
+
+        //TODO Get the username from the response
+        var userEmail = res.data.username;
+
+        //TODO generate a random number
+        var otp = Math.floor(100000 + Math.random() * 900000);
+
+        const templateParams = {
+          to: userEmail,
+          otp: otp,
+        };
+
+        //TODO send the random number to the email
+        emailjs
+          .send(
+            "service_lt7cz4k",
+            "template_pmkafkb",
+            templateParams,
+            "wl6cdGZSnoxsKMJcf"
+          )
+          .then(
+            (result) => {
+              //TODO get the user input in the confirm box input
+              const enteredOTP = prompt("Please enter OTP");
+
+              if (enteredOTP === otp) {
+                alert("Logged in");
+                //TODO compare and continue to access control
+                alert(this.state.username + " logged in successfully");
+                const decoded = jwtDecode(res.data.token);
+                sessionStorage.setItem("role", decoded.role);
+                console.log(decoded.role);
+                //check the role and redirect to the view
+                if (decoded.role === "Admin") {
+                  window.location.href = "/admin";
+                } else if (decoded.role === "Manager") {
+                  window.location.href = "/manager";
+                } else if (decoded.role === "Worker") {
+                  window.location.href = "/worker";
+                } else {
+                  window.location.href = "#";
+                }
+              }
+            },
+            (error) => {
+              alert("Login failed at OTP email, please try again");
+            }
+          );
       })
       .catch((error) => {
         alert("Login failed, please try again");
