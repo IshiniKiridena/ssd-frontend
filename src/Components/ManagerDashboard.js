@@ -63,8 +63,8 @@ class ManagerDashboard extends Component {
   }
 
   render() {
-    var isAuthenticated = sessionStorage.getItem("isAuthenticated");
-    if (isAuthenticated === "true") {
+    var role = sessionStorage.getItem("role");
+    if (role === "Manager") {
       const { message } = this.state;
       return (
         <div

@@ -43,8 +43,8 @@ class AdminDashboard extends Component {
   }
 
   render() {
-    var isAuthenticated = sessionStorage.getItem("isAuthenticated");
-    if (isAuthenticated === "true") {
+    var role = sessionStorage.getItem("role");
+    if (role === "Admin") {
       const { username, password, role } = this.state;
       const user = localStorage.getItem("username");
 

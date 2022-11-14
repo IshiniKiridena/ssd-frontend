@@ -1,6 +1,7 @@
 import { Button, FormControl, TextField } from "@mui/material";
 import axios from "axios";
 import React, { Component } from "react";
+import jwtDecode from "jwt-decode";
 
 class Login extends Component {
   constructor(props) {
@@ -29,13 +30,15 @@ class Login extends Component {
         axios.defaults.headers.common["Authorization"] =
           "Bearer" + res.data.username;
         alert(this.state.username + " logged in successfully");
-
+        const decoded = jwtDecode(res.data.token);
+        sessionStorage.setItem("role", decoded.role);
+        console.log(decoded.role);
         //check the role and redirect to the view
-        if (res.data.role === "Admin") {
+        if (decoded.role === "Admin") {
           window.location.href = "/admin";
-        } else if (res.data.role === "Manager") {
+        } else if (decoded.role === "Manager") {
           window.location.href = "/manager";
-        } else if (res.data.role === "Worker") {
+        } else if (decoded.role === "Worker") {
           window.location.href = "/worker";
         } else {
           window.location.href = "#";
