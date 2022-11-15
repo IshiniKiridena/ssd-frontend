@@ -53,10 +53,10 @@ class Login extends Component {
           .then(
             (result) => {
               //TODO get the user input in the confirm box input
-              const enteredOTP = prompt("Please enter OTP");
+              var enteredOTP; 
+              while(enteredOTP == null) enteredOTP = prompt("Please enter OTP");
 
-              if (enteredOTP === otp) {
-                alert("Logged in");
+              if (enteredOTP == otp) {
                 //TODO compare and continue to access control
                 alert(this.state.username + " logged in successfully");
                 const decoded = jwtDecode(res.data.token);
@@ -72,6 +72,8 @@ class Login extends Component {
                 } else {
                   window.location.href = "#";
                 }
+              }else{
+                alert("Invalid OTP, please try again");
               }
             },
             (error) => {
