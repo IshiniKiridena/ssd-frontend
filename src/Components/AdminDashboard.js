@@ -59,7 +59,6 @@ class AdminDashboard extends Component {
         >
           <div>
             <h1>Admin Dashboard</h1>
-            <h2>Welcome {user}</h2>
             <br />
             <h3>Create User</h3>
             <form id="regForm" onSubmit={this.handleSubmit}>
